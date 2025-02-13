@@ -1,9 +1,19 @@
+
+using CarMaintanceApp.Data;
+using CarMaintanceApp.Models;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 //Init ASP.NET Project
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+// Add DBContext for SQLITE
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
+builder.Services.AddControllersWithViews();
+//secand variable for build
+var app2 = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
